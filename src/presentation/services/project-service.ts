@@ -1,7 +1,7 @@
 import { Request } from "express"
 import { CustomError } from "../../domain/errors/custom.error"
-import { CreateProjectDto } from "../../domain/dtos/create-project.dto"
 import Project from "../../data/mongo/models/project.model"
+import { ProjectDataDto } from "../../domain/dtos/project/project-data.dto"
 
 export class ProductService {
     constructor() {}
@@ -32,7 +32,7 @@ export class ProductService {
         
     }
 
-    public async createProject (project: CreateProjectDto) {
+    public async createProject (project: ProjectDataDto) {
 
         // const existingProduct = await Project.findOne({projectName: product.projectName})
         // if (existingProduct) {
@@ -46,5 +46,18 @@ export class ProductService {
         } catch (error) {
             throw CustomError.internalServer(`${error}`)
         }
+    }
+
+    public async updateProject (id: string, projectData: ProjectDataDto) {
+        const existingProject = await Project.findById(id)
+        if(!existingProject) throw CustomError.notFound('Project not found')
+
+        try {
+            const updatedProject = await Project.findByIdAndUpdate(id, projectData)  
+            await updatedProject?.save()  
+        } catch (error) {
+            throw CustomError.internalServer(`${error}`)
+        }
+    
     }
 }
