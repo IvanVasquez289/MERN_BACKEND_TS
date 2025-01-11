@@ -60,4 +60,15 @@ export class ProductService {
         }
     
     }
+
+    public async deleteProject (id: string) {
+        const project = await Project.findById(id)
+        if(!project) throw CustomError.notFound('Project not found')
+        try {
+            // TODO: validar si el usuario tiene permisos
+            project.deleteOne()
+        } catch (error) {
+            throw CustomError.internalServer(`${error}`)
+        }
+    }
 }

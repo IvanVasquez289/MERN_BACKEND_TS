@@ -61,9 +61,21 @@ export class ProjectController {
             res.status(400).json({error})
             return       
         }
-        
+
         this.productService.updateProject(id, projectDataDto!)
             .then(response => res.status(201).json('Project updated'))
+            .catch(error => this.handleError(error, res))
+    }
+
+    public deleteProject = (req:Request, res: Response) => {
+        const {id} = req.params
+        if(!Validators.isMongoId(id)){
+            res.status(400).json({error: 'Invalid id'})
+            return
+        }
+        
+        this.productService.deleteProject(id)
+            .then(response => res.status(200).json('Project deleted'))
             .catch(error => this.handleError(error, res))
     }
 
