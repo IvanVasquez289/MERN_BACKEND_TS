@@ -19,6 +19,10 @@ export class CustomError extends Error {
         return new CustomError(message, 403)
     }
 
+    static notFound(message: string) {
+        return new CustomError(message, 404)
+    }
+
     static internalServer(message: string) {
         return new CustomError(message, 500)
     }

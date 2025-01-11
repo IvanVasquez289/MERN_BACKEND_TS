@@ -3,7 +3,7 @@ import { ProjectController } from './controller';
 import { ProductService } from "../services/project-service";
 
 
-export class ProductRoutes {
+export class ProjectRoutes {
 
     static get routes():Router {
         const router = Router()
@@ -12,6 +12,7 @@ export class ProductRoutes {
         
         // Definir las rutas
         router.get('/', projectController.getProjects)
+        router.get('/:id', projectController.getProjectById)
         router.post('/', projectController.createProject)
         
         return router

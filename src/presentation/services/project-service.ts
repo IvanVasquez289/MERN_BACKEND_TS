@@ -18,6 +18,20 @@ export class ProductService {
         }
     }
 
+    public getProjectById = async (id: string) => {
+        try {
+            const project = await Project.findById(id)
+            if(!project) throw CustomError.notFound('Project not found jeje')
+            return {
+                project
+            }
+        } catch (error) {
+            if(error instanceof Error) throw error
+            throw CustomError.internalServer(`${error}`)
+        }
+        
+    }
+
     public async createProject (project: CreateProjectDto) {
 
         // const existingProduct = await Project.findOne({projectName: product.projectName})
