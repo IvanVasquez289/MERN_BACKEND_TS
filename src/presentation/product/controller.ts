@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { ProductService } from "../services/product-service";
+import { ProductService } from "../services/project-service";
 import { CustomError } from "../../domain/errors/custom.error";
 import { CreateProjectDto } from "../../domain/dtos/create-project.dto";
 
-export class ProductController {
+export class ProjectController {
     constructor(
         public readonly productService: ProductService
     ) {}
@@ -16,21 +16,21 @@ export class ProductController {
         return res.status(500).json({error: 'Internal server error'})
     }
 
-    public getProducts = (req:Request, res: Response) => {
-        this.productService.getProducts()
+    public getProjects = (req:Request, res: Response) => {
+        this.productService.getProjects()
             .then(response => res.json(response))
             .catch(error => this.handleError(error, res))
 
     }
 
-    createProduct = (req:Request, res: Response) => {
+    createProject = (req:Request, res: Response) => {
         const [error, createProductDto] = CreateProjectDto.create(req.body)
         if(error){
             res.status(400).json({error})
             return            
         }
 
-        this.productService.createProduct(createProductDto!)
+        this.productService.createProject(createProductDto!)
             .then(response => res.json(response))
             .catch(error => this.handleError(error, res))
     }

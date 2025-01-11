@@ -1,18 +1,18 @@
 import { Router } from "express"
-import { ProductController } from './controller';
-import { ProductService } from "../services/product-service";
+import { ProjectController } from './controller';
+import { ProductService } from "../services/project-service";
 
 
 export class ProductRoutes {
 
     static get routes():Router {
         const router = Router()
-        const productService = new ProductService()
-        const productController = new ProductController(productService)
+        const projectService = new ProductService()
+        const projectController = new ProjectController(projectService)
         
         // Definir las rutas
-        router.get('/', productController.getProducts)
-        router.post('/', productController.createProduct)
+        router.get('/', projectController.getProjects)
+        router.post('/', projectController.createProject)
         
         return router
     }

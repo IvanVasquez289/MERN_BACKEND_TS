@@ -7,11 +7,18 @@ export class ProductService {
     constructor() {}
 
 
-    public getProducts = async () => {
-        return 'obteniendo productos desde service'
+    public getProjects = async () => {
+        try {
+            const projects = await Project.find({})
+            return {
+                projects
+            }
+        } catch (error) {
+            throw CustomError.internalServer(`${error}`)
+        }
     }
 
-    public async createProduct (product: CreateProjectDto) {
+    public async createProject (project: CreateProjectDto) {
 
         // const existingProduct = await Project.findOne({projectName: product.projectName})
         // if (existingProduct) {
@@ -19,9 +26,9 @@ export class ProductService {
         // }
 
         try {
-            const newProduct = await Project.create(product)
-            await newProduct.save()
-            return newProduct
+            const newProject = await Project.create(project)
+            await newProject.save()
+            return newProject
         } catch (error) {
             throw CustomError.internalServer(`${error}`)
         }
