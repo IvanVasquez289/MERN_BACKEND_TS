@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { ProductService } from "../services/project-service";
 import { CustomError } from "../../domain/errors/custom.error";
 import { Validators } from "../../config/validators";
 import { ProjectDataDto } from "../../domain/dtos/project/project-data.dto";
+import { ProjectService } from "../services/project-service";
 
 export class ProjectController {
     constructor(
-        public readonly productService: ProductService
+        public readonly projectService: ProjectService
     ) {}
 
     private handleError = (error:any , res:Response) => {
@@ -18,7 +18,7 @@ export class ProjectController {
     }
 
     public getProjects = (req:Request, res: Response) => {
-        this.productService.getProjects()
+        this.projectService.getProjects()
             .then(response => res.json(response))
             .catch(error => this.handleError(error, res))
 
@@ -31,7 +31,7 @@ export class ProjectController {
             return
         }
         
-        this.productService.getProjectById(id)
+        this.projectService.getProjectById(id)
             .then(response => res.json(response))
             .catch(error => this.handleError(error, res))
     }
@@ -40,10 +40,10 @@ export class ProjectController {
         const [error, projectDataDto] = ProjectDataDto.create(req.body)
         if(error){
             res.status(400).json({error})
-            return       
+             
         }   
 
-        this.productService.createProject(projectDataDto!)
+        this.projectService.createProject(projectDataDto!)
             .then(response => res.json(response))
             .catch(error => this.handleError(error, res))
     }
@@ -62,7 +62,7 @@ export class ProjectController {
             return       
         }
 
-        this.productService.updateProject(id, projectDataDto!)
+        this.projectService.updateProject(id, projectDataDto!)
             .then(response => res.status(201).json('Project updated'))
             .catch(error => this.handleError(error, res))
     }
@@ -74,7 +74,7 @@ export class ProjectController {
             return
         }
         
-        this.productService.deleteProject(id)
+        this.projectService.deleteProject(id)
             .then(response => res.status(200).json('Project deleted'))
             .catch(error => this.handleError(error, res))
     }

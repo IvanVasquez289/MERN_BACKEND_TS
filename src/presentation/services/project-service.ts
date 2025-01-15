@@ -3,7 +3,7 @@ import { CustomError } from "../../domain/errors/custom.error"
 import Project from "../../data/mongo/models/project.model"
 import { ProjectDataDto } from "../../domain/dtos/project/project-data.dto"
 
-export class ProductService {
+export class ProjectService {
     constructor() {}
 
 
