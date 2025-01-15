@@ -19,10 +19,8 @@ export class TaskController {
 
 
     public createTask = async (req: Request, res: Response) => {
-        const {projectId} = req.params
         const [error, taskData] = TaskDataDto.create({
             ...req.body,
-            project: projectId
         })
 
         if(error) {
@@ -30,7 +28,7 @@ export class TaskController {
             return
         }
 
-        this.taskService.createTask(taskData!)
+        this.taskService.createTask(req,taskData!)
             .then(response => res.json(response))
             .catch(error => this.handleError(error, res))
     }

@@ -3,6 +3,7 @@ import { ProjectController } from './controller';
 import { TaskController } from "../task/controller";
 import { TaskService } from "../services/task-service";
 import { ProjectService } from "../services/project-service";
+import { validateProject } from "../middlewares/validate-project";
 
 
 export class ProjectRoutes {
@@ -24,7 +25,7 @@ export class ProjectRoutes {
         router.delete('/:id', projectController.deleteProject)
 
         // Rutas para tareas
-        router.post('/:projectId/tasks', taskController.createTask)
+        router.post('/:projectId/tasks',[validateProject] ,taskController.createTask)
         
         return router
     }
