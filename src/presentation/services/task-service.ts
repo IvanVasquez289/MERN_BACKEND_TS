@@ -16,9 +16,10 @@ export class TaskService {
             newTask.project = project.id
             project.tasks.push(newTask.id)
 
-            await newTask.save()
-            await project.save()
+            // await newTask.save()
+            // await project.save()
 
+            await Promise.allSettled([newTask.save(), project.save()])
             return newTask
         } catch (error) {
             throw CustomError.internalServer(`${error}`)
