@@ -32,4 +32,10 @@ export class TaskController {
             .then(response => res.json(response))
             .catch(error => this.handleError(error, res))
     }
+
+    public getTasks = (req:Request, res: Response) => {
+        this.taskService.getTasks(req)
+            .then(response => res.json(response))
+            .catch(error => this.handleError(error, res))
+    }
 }

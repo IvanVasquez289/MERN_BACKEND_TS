@@ -26,6 +26,7 @@ export class ProjectRoutes {
 
         // Rutas para tareas
         router.post('/:projectId/tasks',[validateProject] ,taskController.createTask)
+        router.get('/:projectId/tasks',[validateProject] ,taskController.getTasks)
         
         return router
     }

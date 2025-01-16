@@ -25,4 +25,16 @@ export class TaskService {
             throw CustomError.internalServer(`${error}`)
         }
     }
+
+    public getTasks = async (req:Request) => {
+        try {
+            const projectId = req.project.id
+            const tasks = await Task.find({project: projectId}).populate('project')
+            return {
+                tasks
+            }
+        } catch (error) {
+            throw CustomError.internalServer(`${error}`)
+        }
+    }
 }

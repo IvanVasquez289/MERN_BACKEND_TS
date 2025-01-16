@@ -20,7 +20,7 @@ export class ProjectService {
 
     public getProjectById = async (id: string) => {
         try {
-            const project = await Project.findById(id)
+            const project = await Project.findById(id).populate('tasks')
             if(!project) throw CustomError.notFound('Project not found jeje')
             return {
                 project
